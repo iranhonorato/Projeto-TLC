@@ -1,2 +1,5 @@
+.gitignore
 venv
 .env
+Base 5.0.xlsx
+resultado.xlsx
