@@ -6,3 +6,4 @@ pandas
 selenium
 beautifulsoup4
 openpyxl
+openai
