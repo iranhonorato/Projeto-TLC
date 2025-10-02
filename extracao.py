@@ -77,6 +77,7 @@ class Trabalho(BaseModel):
     area_avaliada: AreaAvaliada = Field(..., description="Área avaliada no trabalho")
     ods_relacionada: DesafiosODS = Field(..., description="ODS relacionado ao trabalho (texto)")
     etapa: EtapaCicloPP = Field(..., description="Etapa do ciclo de políticas públicas")
+    titulo:str = Field(..., description="Titulo do trabalho")
     resumo: str = Field(..., description="Resumo do trabalho")
 
 
@@ -91,7 +92,8 @@ def extracao_langchain(texto: str) -> Trabalho:
     - area_avaliada: "Educação", "Saúde", "Meio Ambiente", "Gênero", "Raça", "Pobreza" ou "Desenvolvimento Social" 
     - ods_relacionada: um dos 17 ODS, no formato textual (ex.: "Erradicação da pobreza") 
     - etapa: "Definição e Dimensão", "Mobilização", "Mapeamento dos Determinantes", "Solução", "Justificativa", "Aprimoramento" ou "Certificacao" 
-    - resumo: Produza um resumo analítico, em até 8 sentenças, destacando as evidências, lacunas, relevância social e possíveis impactos da pesquisa/política. 
+    - titulo: Extraia o título do trabalho 
+    - resumo: Produza um resumo analítico, em até 8 sentenças, destacando as evidências, lacunas, relevância social e possíveis impactos da pesquisa/política.
     Suas respostas devem ser claras, fundamentadas e conectadas com as melhores práticas de análise de políticas públicas baseadas em evidências.
 
     Responda somente com o JSON e nada mais, por exemplo: 
@@ -102,6 +104,7 @@ def extracao_langchain(texto: str) -> Trabalho:
     'area_avaliada': ...,
     'ods_relacionada': ..., 
     'etapa': ..., 
+    'titulo': ...,
     'resumo': ...
     }}
 

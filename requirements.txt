@@ -6,4 +6,6 @@ pandas
 selenium
 beautifulsoup4
 openpyxl
-openai
+pypdf
+tabula-py
+camelot-py
