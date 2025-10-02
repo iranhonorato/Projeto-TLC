@@ -80,9 +80,9 @@ class Trabalho(BaseModel):
     resumo: str = Field(..., description="Resumo do trabalho")
 
 
-def extracao_langchain(texto: str, max_sentences: int = 8) -> Trabalho:
+def extracao_langchain(texto: str) -> Trabalho:
 
-    system_text = f"""
+    system_text = """
     Você é um pesquisador especializado em políticas públicas e nos Objetivos de Desenvolvimento Sustentável (ODS) da ONU. 
     Seu papel é analisar textos, artigos e relatórios a partir de uma perspectiva acadêmica e técnica, utilizando uma abordagem baseada em evidências. 
     Sempre que receber um texto ou estudo, realize a seguinte tarefa: Responda **apenas** com um objeto JSON válido que tenha as seguintes chaves: 
@@ -91,10 +91,20 @@ def extracao_langchain(texto: str, max_sentences: int = 8) -> Trabalho:
     - area_avaliada: "Educação", "Saúde", "Meio Ambiente", "Gênero", "Raça", "Pobreza" ou "Desenvolvimento Social" 
     - ods_relacionada: um dos 17 ODS, no formato textual (ex.: "Erradicação da pobreza") 
     - etapa: "Definição e Dimensão", "Mobilização", "Mapeamento dos Determinantes", "Solução", "Justificativa", "Aprimoramento" ou "Certificacao" 
-    - resumo: Produza um resumo analítico, em até {max_sentences} sentenças, destacando as evidências, lacunas, relevância social e possíveis impactos da pesquisa/política. 
+    - resumo: Produza um resumo analítico, em até 8 sentenças, destacando as evidências, lacunas, relevância social e possíveis impactos da pesquisa/política. 
     Suas respostas devem ser claras, fundamentadas e conectadas com as melhores práticas de análise de políticas públicas baseadas em evidências.
 
-    Responda somente com o JSON — nada mais.
+    Responda somente com o JSON e nada mais, por exemplo: 
+
+    {{
+    'classificacao': ...,
+    'metodologia': ..., 
+    'area_avaliada': ...,
+    'ods_relacionada': ..., 
+    'etapa': ..., 
+    'resumo': ...
+    }}
+
     """
 
 
