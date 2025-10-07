@@ -1,0 +1,38 @@
+[
+  {
+    "classificacao": "Academica",
+    "metodologia": "Quantitativa",
+    "area_avaliada": "Desenvolvimento Social",
+    "ods_relacionada": "Indústria, inovação e infraestrutura",
+    "etapa": "Aprimoramento",
+    "titulo": "Monitoring the Governance of State-Owned Enterprises",
+    "resumo": "O relatório analisa os esforços do Brasil para mitigar conflitos de agência em empresas estatais (SOEs) através de reformas de governança corporativa, destacando a Lei 13303 de 2016 e o mecanismo de monitoramento IG-SEST. Utilizando a metodologia de diferença-em-diferenças, o estudo avalia o impacto dessas intervenções na lucratividade e produtividade laboral das SOEs. Os resultados indicam que, embora a Lei das SOEs não tenha mostrado efeitos significativos por si só, as SOEs federais que adotaram o IG-SEST apresentaram um aumento significativo na lucratividade em comparação com SOEs municipais e estaduais. Isso sugere que mudanças institucionais podem necessitar de mecanismos complementares para uma implementação eficaz. As conclusões são consistentes com estudos anteriores que apontam para a necessidade de reformas institucionais mais amplas, incluindo políticas fiscais, para mitigar ações governamentais que afetam negativamente o desempenho e a solvência das SOEs."
+  },
+  {
+    "classificacao": "Academica",
+    "metodologia": "Qualitativa",
+    "area_avaliada": "Desenvolvimento Social",
+    "ods_relacionada": "Trabalho decente e crescimento econômico",
+    "etapa": "Justificativa",
+    "titulo": "Structural change, productivity growth and trade policy in Brazil",
+    "resumo": "O capítulo analisa o processo de industrialização do Brasil no pós-guerra, destacando o crescimento da produtividade do trabalho e as políticas comerciais adotadas. Durante algumas décadas, o Brasil experimentou um rápido crescimento industrial, impulsionado por políticas protecionistas iniciadas nos anos 1950. Essas políticas visavam proteger as indústrias nacionais da concorrência estrangeira, resultando em taxas de crescimento anuais superiores a 10%. No entanto, a partir dos anos 1980, essas políticas se tornaram prejudiciais, contribuindo para altas taxas de inflação e crescimento econômico estagnado. O estudo oferece uma análise crítica das políticas de isolamento econômico e suas consequências, destacando a necessidade de reformas para promover um crescimento sustentável. A pesquisa é relevante para entender os desafios enfrentados por economias em desenvolvimento e as lições aprendidas com as políticas comerciais do Brasil."
+  },
+  {
+    "classificacao": "Academica",
+    "metodologia": "Qualitativa",
+    "area_avaliada": "Desenvolvimento Social",
+    "ods_relacionada": "Trabalho decente e crescimento econômico",
+    "etapa": "Mapeamento dos Determinantes",
+    "titulo": "Crédito direcionado e financiamento do desenvolvimento",
+    "resumo": "O capítulo analisa o impacto do crédito direcionado em diversas dimensões da economia brasileira, destacando sua relevância tanto para pessoas físicas quanto jurídicas. Com ênfase no crédito às firmas, o texto explora a significativa participação do Banco Nacional do Desenvolvimento (BNDES) nesse contexto. A análise inclui uma comparação com experiências internacionais de bancos de desenvolvimento, oferecendo uma perspectiva abrangente sobre o papel dessas instituições no financiamento do desenvolvimento. Evidências sugerem que o crédito direcionado é crucial para o crescimento econômico, mas o texto também aponta para a necessidade de uma avaliação crítica sobre a eficácia e eficiência dessas políticas. A pesquisa é relevante para entender como o crédito direcionado pode ser otimizado para promover o desenvolvimento sustentável e o crescimento econômico inclusivo."
+  },
+  {
+    "classificacao": "Academica",
+    "metodologia": "Qualitativa",
+    "area_avaliada": "Saúde",
+    "ods_relacionada": "Saúde e bem-estar",
+    "etapa": "Definição e Dimensão",
+    "titulo": "Teoria da Mudança: definição, utilidade e como construir",
+    "resumo": "O capítulo aborda a teoria da mudança como uma ferramenta essencial para o desenho, monitoramento e avaliação de programas, especialmente no contexto de políticas de saúde. Através de uma sequência lógica, a teoria da mudança descreve como os resultados desejados podem ser alcançados, oferecendo um guia prático para gestores públicos e avaliadores. O texto destaca a importância de uma compreensão clara dos objetivos e dos passos necessários para atingir os resultados, enfatizando a utilidade da teoria na estruturação de intervenções eficazes. A inclusão de um exemplo prático no capítulo ilustra a aplicação dos conceitos discutidos, tornando o conteúdo acessível e aplicável. A pesquisa é relevante para o fortalecimento das políticas de saúde, contribuindo para o aprimoramento das práticas de avaliação e implementação de programas no SUS. No entanto, o texto poderia beneficiar-se de uma análise mais aprofundada sobre as limitações e desafios na aplicação da teoria da mudança em contextos variados."
+  }
+]

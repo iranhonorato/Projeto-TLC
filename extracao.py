@@ -165,20 +165,20 @@ def enum_encoder(o):
 # -----------------------------
 # Exemplo de uso
 # -----------------------------
-if __name__ == "__main__":
-    exemplo = """
-    Analyzing the quality factor for Brazil
-    Abstract
-    Investments in Brazil are increasingly allocated to the stock market, at the expense of more conservative investments. 
-    Would finding higher-quality assets allow investors to increase their risk-return ratio? 
-    We analyze quality with several metrics, including the quality-minus-junk (QMJ) factor for Brazil. 
-    We find that quality companies are valued more by investors, with a higher price-to-book ratio. 
-    A portfolio of shares of higher quality shows a significant positive return over the period analyzed, adjusted for several risk factors. 
-    The sample members classified as quality companies remained within this classification over time.
-    """
+# if __name__ == "__main__":
+#     exemplo = """
+#     Analyzing the quality factor for Brazil
+#     Abstract
+#     Investments in Brazil are increasingly allocated to the stock market, at the expense of more conservative investments. 
+#     Would finding higher-quality assets allow investors to increase their risk-return ratio? 
+#     We analyze quality with several metrics, including the quality-minus-junk (QMJ) factor for Brazil. 
+#     We find that quality companies are valued more by investors, with a higher price-to-book ratio. 
+#     A portfolio of shares of higher quality shows a significant positive return over the period analyzed, adjusted for several risk factors. 
+#     The sample members classified as quality companies remained within this classification over time.
+#     """
 
-    resultado = extracao_langchain(exemplo)
+#     resultado = extracao_langchain(exemplo)
 
-    # imprimir JSON com Enums serializados
-    data = resultado.model_dump()  # dict
-    print(json.dumps(data, ensure_ascii=False, indent=2, default=enum_encoder))
+#     # imprimir JSON com Enums serializados
+#     data = resultado.model_dump()  # dict
+#     print(json.dumps(data, ensure_ascii=False, indent=2, default=enum_encoder))
