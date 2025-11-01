@@ -1,5 +1,6 @@
-.gitignore
-venv
-.env
-Base 5.0.xlsx
-resultado.xlsx
+.venv 
+venv 
+
+.env 
+__pycache__
+__pycache__
