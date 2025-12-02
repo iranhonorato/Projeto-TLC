@@ -5,10 +5,9 @@ from operator import itemgetter
 from enum import Enum
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
-from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.prompts import MessagesPlaceholder
-from langchain_core.runnables.history import RunnableWithMessageHistory
-from pydantic import Field, BaseModel, ValidationError
+from langchain_core.prompts import ChatPromptTemplate, PromptTemplate, SystemMessagePromptTemplate, HumanMessagePromptTemplate
+from pydantic import Field, BaseModel
+from typing import List
 
 # Baseie-se nos exemplos abaixo para fazer a análise do trabalho acima:
 #     Exemplo 1: 
@@ -71,59 +70,56 @@ from pydantic import Field, BaseModel, ValidationError
 #     'titulo': 'Financing needs, spending projection, and the future of health in Brazil'
 
 load_dotenv()
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 
-class DesafiosODS(Enum):
-    ODS_01 = "Erradicação da pobreza"
-    ODS_02 = "Fome zero e agricultura sustentável"
-    ODS_03 = "Saúde e bem-estar"
-    ODS_04 = "Educação de qualidade"
-    ODS_05 = "Igualdade de gênero"
-    ODS_06 = "Água potável e saneamento"
-    ODS_07 = "Energia limpa e acessível"
-    ODS_08 = "Trabalho decente e crescimento econômico"
-    ODS_09 = "Indústria, inovação e infraestrutura"
-    ODS_10 = "Redução das desigualdades"
-    ODS_11 = "Cidades e comunidades sustentáveis"
-    ODS_12 = "Consumo e produção sustentáveis"
-    ODS_13 = "Ação contra a mudança global do clima"
-    ODS_14 = "Vida na água"
-    ODS_15 = "Vida terrestre"
-    ODS_16 = "Paz, justiça e instituições eficazes"
-    ODS_17 = "Parcerias e meios de implementação"
+# class DesafiosODS(Enum):
+#     ODS_01 = "Erradicação da pobreza"
+#     ODS_02 = "Fome zero e agricultura sustentável"
+#     ODS_03 = "Saúde e bem-estar"
+#     ODS_04 = "Educação de qualidade"
+#     ODS_05 = "Igualdade de gênero"
+#     ODS_06 = "Água potável e saneamento"
+#     ODS_07 = "Energia limpa e acessível"
+#     ODS_08 = "Trabalho decente e crescimento econômico"
+#     ODS_09 = "Indústria, inovação e infraestrutura"
+#     ODS_10 = "Redução das desigualdades"
+#     ODS_11 = "Cidades e comunidades sustentáveis"
+#     ODS_12 = "Consumo e produção sustentáveis"
+#     ODS_13 = "Ação contra a mudança global do clima"
+#     ODS_14 = "Vida na água"
+#     ODS_15 = "Vida terrestre"
+#     ODS_16 = "Paz, justiça e instituições eficazes"
+#     ODS_17 = "Parcerias e meios de implementação"
 
 
-
-class ODSNumber(Enum):
-    ODS_01 = 1
-    ODS_02 = 2
-    ODS_03 = 3
-    ODS_04 = 4
-    ODS_05 = 5
-    ODS_06 = 6
-    ODS_07 = 7
-    ODS_08 = 8
-    ODS_09 = 9
-    ODS_10 = 10
-    ODS_11 = 11
-    ODS_12 = 12
-    ODS_13 = 13
-    ODS_14 = 14
-    ODS_15 = 15
-    ODS_16 = 16
-    ODS_17 = 17
-
+# class ODSNumber(Enum):
+#     ODS_01 = 1
+#     ODS_02 = 2
+#     ODS_03 = 3
+#     ODS_04 = 4
+#     ODS_05 = 5
+#     ODS_06 = 6
+#     ODS_07 = 7
+#     ODS_08 = 8
+#     ODS_09 = 9
+#     ODS_10 = 10
+#     ODS_11 = 11
+#     ODS_12 = 12
+#     ODS_13 = 13
+#     ODS_14 = 14
+#     ODS_15 = 15
+#     ODS_16 = 16
+#     ODS_17 = 17
 
 
-class EtapaCicloPP(Enum):
-    DEFINICAO = "Definição e Dimensão"
-    MOBILIZACAO = "Mobilização"
-    MAPEAMENTO = "Mapeamento dos Determinantes"
-    SOLUCAO = "Solução"
-    JUSTIFICATIVA = "Justificativa"
-    APRIMORAMENTO = "Aprimoramento"
-    CERTIFICACAO = "Certificação"
+# class EtapaCicloPP(Enum):
+#     DEFINICAO = "Definição e Dimensão"
+#     MOBILIZACAO = "Mobilização"
+#     MAPEAMENTO = "Mapeamento dos Determinantes"
+#     SOLUCAO = "Solução"
+#     JUSTIFICATIVA = "Justificativa"
+#     APRIMORAMENTO = "Aprimoramento"
+#     CERTIFICACAO = "Certificação"
 
 
 class Classificacao(Enum):
@@ -151,7 +147,7 @@ class Trabalho(BaseModel):
     classificacao: Classificacao = Field(..., description="Acadêmico ou técnico")
     metodologia: Metodologia = Field(..., description="Abordagem do trabalho")
     area_avaliada: AreaAvaliada = Field(..., description="Área avaliada no trabalho")
-    ods: str = Field(..., description="Número das ODS relacionadas ao trabalho (texto)")
+    ods: List[int] = Field(..., description="Número das ODS relacionadas ao trabalho (texto)")
     etapa: str = Field(..., description="Etapa do ciclo de políticas públicas")
     titulo:str = Field(..., description="Titulo do trabalho")
 
@@ -228,14 +224,14 @@ def extracao_langchain(texto:str) -> Trabalho:
     '''
 
 
-    system_text = f"""
+    system_text = """
     Você é um pesquisador especializado em políticas públicas e nos Objetivos de Desenvolvimento Sustentável (ODS) da ONU. 
     Seu papel é analisar textos, artigos e relatórios a partir de uma perspectiva acadêmica e técnica, utilizando uma abordagem baseada em evidências. 
     Sempre que receber um texto ou estudo, realize a seguinte tarefa: Responda **apenas** com um objeto JSON válido que tenha as seguintes chaves: 
     - classificacao: "Academica" (maior rigor acadêmico nos métodos e na escrita) ou "Tecnica" (ênfase à execução, procedimentos e resultados práticos, mais do que à fundamentação teórica) 
     - metodologia: "Qualitativa", "Quantitativa" ou "Mista" 
     - area_avaliada: "Educação", "Saúde", "Meio Ambiente", "Gênero", "Raça", "Pobreza" ou "Desenvolvimento Social" 
-    - ods: o número das ODS's (Objetivo de Desenvolvimento Sustentável da ONU) relacionadas ao trabalho no formato textual (Podem ter mais de uma relacionadas):{ods_description}
+    - ods: o número das ODS's (Objetivo de Desenvolvimento Sustentável da ONU {ods_description}) relacionadas ao trabalho no formato textual (Podem ter mais de uma relacionadas): "11; 13; 17" (Por exemplo)
     - etapa do ciclo de políticas públicas (Podem ter mais de uma relacionadas): {etapa_ciclo_pp}
     - titulo: Extraia o título do trabalho (Apenas copie e cole o título. Não precisa traduzir)
 
@@ -257,28 +253,40 @@ def extracao_langchain(texto:str) -> Trabalho:
         {texto}
     '''
 
+    system_prompt = PromptTemplate(
+        input_variables=["ods_description", "etapa_ciclo_pp"],
+        template=system_text
+    )
 
-    # Orientando a resposta do modelo com um contexto como prompt
-    prompt = ChatPromptTemplate.from_messages([
-        ("system", system_text),
-        ("user", user_template)
+    user_prompt = PromptTemplate(
+    input_variables=["texto"],
+    template=user_template
+    )
+
+    chat_prompt = ChatPromptTemplate.from_messages([
+    SystemMessagePromptTemplate(prompt=system_prompt),
+    HumanMessagePromptTemplate(prompt=user_prompt)
     ])
 
 
-    # Intância do modelo de linguagem utilizada
-    llm = ChatOpenAI(api_key=OPENAI_API_KEY, model="gpt-4.1", temperature=0.3) 
+
+    llm = ChatOpenAI(model="gpt-4.1-mini", temperature=0.3) 
     structured_output = llm.with_structured_output(Trabalho)
-    # Orienta o langchain a devolver uma reposta diretamente convertida em um objeto do tipo Trabalho
 
 
 
-    # Encadeamento do texto com o prompt e a resposta estruturada que desejamos 
-    chain = ({"input": itemgetter("input")} | prompt | structured_output)
+
+    chain = chat_prompt | structured_output
 
 
     try:
-        # Paga o nosso no input e encadeia (com o chain) com o contexto
-        resposta = chain.invoke({"input": texto})
+        resposta = chain.invoke({
+            "ods_description": ods_description,
+            "etapa_ciclo_pp": etapa_ciclo_pp,
+            "texto": texto
+        })
+
+
         resultado = {
             "classificacao": resposta.classificacao.value,
             "metodologia": resposta.metodologia.value,
@@ -298,8 +306,23 @@ def extracao_langchain(texto:str) -> Trabalho:
 
 
 if __name__ == "__main__":
-    exemplo = """Resumo
-In this paper, we analyze two quasi-experiments to assess how urban traffic restrictions and social distancing norms affect pollution levels in the municipality São Paulo, one of the largest metropolitan areas in the world. First, using hourly air pollution levels measured in thirty-three monitoring stations in the state of São Paulo, we exploit exogenous variation in quarantine rules following the COVID-19 outbreak to estimate how social distancing norms affected pollution levels across different municipalities. We find an average decrease of 22.4% in air pollution after the first days of the capital's quarantine announcement, with heterogeneous effects across pollutants, driven by decreases in the vehicle fleet and urban mobility. Second, we compare this effect with another quasi-experiment that explores exogenous suspensions of traffic restriction rules between 2000-2018 in the municipality of São Paulo. We also document increases in pollution levels when more cars are allowed in the streets, with an average increase of 16.7% in air pollution. Finally, we use our estimates to show that a reduction of 4.7 times the estimated ATT in the quarantine period is necessary to reach the capital's long-term air quality goals."""
+    exemplo = """
+    Resumo
+    In this paper, we analyze two quasi-experiments to assess how urban traffic restrictions 
+    and social distancing norms affect pollution levels in the municipality São Paulo, one of 
+    the largest metropolitan areas in the world. First, using hourly air pollution levels measured 
+    in thirty-three monitoring stations in the state of São Paulo, we exploit exogenous variation 
+    in quarantine rules following the COVID-19 outbreak to estimate how social distancing norms 
+    affected pollution levels across different municipalities. We find an average decrease of 22.4% 
+    in air pollution after the first days of the capital's quarantine announcement, with heterogeneous 
+    effects across pollutants, driven by decreases in the vehicle fleet and urban mobility. Second, 
+    we compare this effect with another quasi-experiment that explores exogenous suspensions of traffic 
+    restriction rules between 2000-2018 in the municipality of São Paulo. We also document increases in 
+    pollution levels when more cars are allowed in the streets, with an average increase of 16.7% in air pollution. 
+    Finally, we use our estimates to show that a reduction of 4.7 times the estimated ATT in the quarantine period is 
+    necessary to reach the capital's long-term air quality goals.
+    """
+
     resultado = extracao_langchain(exemplo)
     print(resultado)
 
