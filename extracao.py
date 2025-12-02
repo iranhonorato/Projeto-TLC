@@ -253,20 +253,58 @@ def extracao_langchain(texto:str) -> Trabalho:
         {texto}
     '''
 
+
+
+
+
+
+    # O que isso significa?
+    # Você tem um texto grande com instruções (system_text).
+    # Esse texto possui dois buracos: {ods_description} e {etapa_ciclo_pp}.
+    # O PromptTemplate sabe preencher esses buracos quando receber valores.
+    # Então o system_prompt é simplesmente um:
+    # "Molde de instruções, com variáveis que serão preenchidas antes de enviar ao GPT."
+
     system_prompt = PromptTemplate(
         input_variables=["ods_description", "etapa_ciclo_pp"],
         template=system_text
     )
+
+
+
+
+
+
+    # O que isso significa?
+    # user_template é algo simples como:
+    # Ele tem um buraco: {texto}.
+    # Esse buraco será preenchido com o conteúdo do trabalho / artigo enviado à função.
+    # Então este prompt é:
+    # “A parte da mensagem que contém o texto do usuário que será analisado.”
 
     user_prompt = PromptTemplate(
     input_variables=["texto"],
     template=user_template
     )
 
+
+
+
+
+
+
+    # Aqui acontece a “mágica”:
+    # Você transforma DOIS templates separados em UMA conversa completa.
+    # Exatamente como uma conversa real:
+    # SYSTEM: O GPT recebe instruções internas (como deve se comportar).
+    # USER: O GPT recebe o texto do trabalho para analisar.
+
     chat_prompt = ChatPromptTemplate.from_messages([
     SystemMessagePromptTemplate(prompt=system_prompt),
     HumanMessagePromptTemplate(prompt=user_prompt)
     ])
+
+
 
 
 
